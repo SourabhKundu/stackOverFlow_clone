@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Answer</title>
+    <title>Registration and Login App</title>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/custom.css}" rel="stylesheet"/>
 </head>
-<body>
-<form th:action="@{'/editAnswer/' + ${answer.answerId}}" th:object="${answer}" method="post">
-    <input type="hidden" name="questionId" th:value="${quesId}"/>
+<body class="d-flex flex-column h-100">
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+<main class="d-flex flex-grow-1">
+    <div class="container-fluid d-flex flex-grow-1" style="height: 780px">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+            </div>
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto" style="height: 800px">
+                <div class="content m-3">
+                    <div class="section-title mb-3"></div>
+                    <div class="form-wrapper">
+                        <form th:action="@{'/editAnswer/' + ${answer.answerId}}" th:object="${answer}" method="post">
+                            <input type="hidden" name="questionId" th:value="${quesId}"/>
+                            <div class="form-group">
+                                <label for="answer_content">Answer content</label>
+                                <textarea id="answer_content" name="content" class="form-control"
+                                          th:field="*{content}" rows="15" cols="100">
 
-    <br>
-    <textarea th:field="*{content}" rows="50" cols="50"></textarea>
-    <br>
-    <input type="submit" value="Post Again">
-</form>
+                                </textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Post Again" class="btn btn-primary form-control">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Edit Answer</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form th:action="@{'/editAnswer/' + ${answer.answerId}}" th:object="${answer}" method="post">-->
+<!--    <input type="hidden" name="questionId" th:value="${quesId}"/>-->
+
+<!--    <br>-->
+<!--    <textarea th:field="*{content}" rows="50" cols="50"></textarea>-->
+<!--    <br>-->
+<!--    <input type="submit" value="Post Again">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
