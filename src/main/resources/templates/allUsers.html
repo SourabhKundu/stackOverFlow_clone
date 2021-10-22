@@ -14,30 +14,54 @@
 </head>
 <body class="d-flex flex-column h-100">
 <header>
-
+    <div th:replace="~{fragments/navigation}"></div>
 </header>
-<main>
-    <h2>Users</h2>
-    <div>
-        <form th:action="@{/searchUser}">
-            <label for="search"></label>
-            <input type="text" id="search" name="search" placeholder="Filter by user">
-        </form>
-    </div>
-    </div>
-    <br> <br>
-    <div class="d-inline-block w-25 mb-4" th:each="user : ${users}">
-        <div class="user-gravatar gravatar-50 float-left">
-            <img src="https://www.gravatar.com/avatar/ee6e12042dc31b1ef27471482f9ff91f?s=96&d=identicon&r=PG&f=1"
-                 height="48" width="48">
+<main class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+            </div>
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
+                <div class="content">
+                    <div class="content-header mt-4 mx-4">
+                        <div class="section-title mb-3">
+                            <div class="h3 font-weight-normal">Users</div>
+                        </div>
+                        <div class="search-form-wrapper mb-5 d-flex justify-content-between">
+                            <div>
+                                <form th:action="@{/searchUser}">
+                                    <label for="search"></label>
+                                    <input type="text" id="search" name="search" placeholder="Filter by user">
+                                </form>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div class="user-browser m-4">
+                            <div class="d-flex flex-wrap">
+                                <div class="d-inline-block w-25 mb-4" th:each="user : ${users}">
+                                    <div class="user-gravatar gravatar-50 float-left">
+                                        <img src="https://www.gravatar.com/avatar/ee6e12042dc31b1ef27471482f9ff91f?s=96&d=identicon&r=PG&f=1"
+                                             height="48" width="48">
+                                    </div>
+                                    <div class="user-details float-left ml-2">
+                                        <a th:href="${'users/viewUser/' + user.userId}"
+                                           class="text-info" th:text="${user.name}"></a>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="user-details float-left ml-2">
-            <a th:href="${'users/viewUser/' + user.userId}"
-               class="text-info" th:text="${user.name}"></a>
-        </div>
-        <br><br>
     </div>
 </main>
+
+<footer class="footer">
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
 
 </body>
 </html>
