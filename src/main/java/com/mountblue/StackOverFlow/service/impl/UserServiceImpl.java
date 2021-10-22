@@ -87,6 +87,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<User> findUserByName(String keyword) {
+        return userRepository.findAll(keyword);
+    }
+
+    @Override
     public User getUserFromContext(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
