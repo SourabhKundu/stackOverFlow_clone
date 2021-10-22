@@ -1,6 +1,7 @@
 package com.mountblue.StackOverFlow.service;
 
 import com.mountblue.StackOverFlow.model.Question;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface QuestionService {
 
     List<Question> findAllQuestions(String keyword);
 
+    Page<Question> findPaginated(int pageNo, int pageSize, String sortField, String sortDir, String keyword);
 }

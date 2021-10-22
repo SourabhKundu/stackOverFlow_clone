@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<h2>Tags</h2>
+<p class="small">
+    A tag is a keyword or label that categorizes your question with other, similar questions.
+    Using the right tags makes it easier for others to find and answer your question.
+</p>
+<div>
+    <form th:action="@{/searchTag}">
+        <label for="search"></label>
+        <input type="text" id="search" name="search" placeholder="Filter by Tags">
+    </form>
+</div>
+<br>
+<div class="d-inline-block w-25 mb-4" th:each="tag : ${tags}">
+    <a th:href="@{'/search2' + '?searchBar=' + ${tag.tagName}}">
+        [[${tag.tagName}]]
+    </a>
+</div>
+
+</body>
+</html>

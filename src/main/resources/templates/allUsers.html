@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Users</title>
+    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+
+</header>
+<main>
+    <h2>Users</h2>
+    <div>
+        <form th:action="@{/searchUser}">
+            <label for="search"></label>
+            <input type="text" id="search" name="search" placeholder="Filter by user">
+        </form>
+    </div>
+    </div>
+    <br> <br>
+    <div class="d-inline-block w-25 mb-4" th:each="user : ${users}">
+        <div class="user-gravatar gravatar-50 float-left">
+            <img src="https://www.gravatar.com/avatar/ee6e12042dc31b1ef27471482f9ff91f?s=96&d=identicon&r=PG&f=1"
+                 height="48" width="48">
+        </div>
+        <div class="user-details float-left ml-2">
+            <a th:href="${'users/viewUser/' + user.userId}"
+               class="text-info" th:text="${user.name}"></a>
+        </div>
+        <br><br>
+    </div>
+</main>
+
+</body>
+</html>
