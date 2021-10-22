@@ -36,7 +36,7 @@ public class UserController {
     @GetMapping("/")
     public String homepage() {
         System.out.println("Hi");
-        return "home";
+        return "index";
     }
 
     @GetMapping("/users")

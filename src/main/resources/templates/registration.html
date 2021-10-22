@@ -1,9 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!--    <link th:href="@{/main.css}" rel="stylesheet"/>-->
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
 <div>
     <a th:href="@{/}">Home</a>
     <br>
@@ -14,7 +22,6 @@
                 <h1>Yoy have registered successfully</h1>
             </div>
             <form th:action="@{/registration}" method="post" th:object="${user}">
-
                 <label for="username"> Display name </label> <br>
                 <input type="text" th:field="*{name}" id="username"  name="username"/>
                 <br>
@@ -31,7 +38,6 @@
                 <br>
                 <br>
                 Already have an account? <a th:href="@{/login}">Log In</a>
-
             </form>
         </div>
     </div>

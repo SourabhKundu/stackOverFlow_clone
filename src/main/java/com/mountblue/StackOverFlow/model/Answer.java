@@ -60,12 +60,10 @@ public class Answer {
     )
     private Set<User> downVotes = new HashSet<>();
 
-
     public Answer() {
     }
 
-    public Answer(Integer answerId, String content, Date createTime, String userName, String email, List<AnsComment> comments, Question question, User author,
-                  Boolean isAccepted, Set<User> upVotes, Set<User> downVotes) {
+    public Answer(Integer answerId, String content, Date createTime, String userName, String email, List<AnsComment> comments, Question question, User author, Boolean isAccepted, Set<User> upVotes, Set<User> downVotes) {
         this.answerId = answerId;
         this.content = content;
         this.createTime = createTime;
@@ -165,12 +163,5 @@ public class Answer {
 
     public void setDownVotes(Set<User> downVotes) {
         this.downVotes = downVotes;
-    }
-
-    public Integer getRating() {
-        if (upVotes != null && downVotes != null) {
-            return upVotes.size() - downVotes.size();
-        }
-        return 0;
     }
 }

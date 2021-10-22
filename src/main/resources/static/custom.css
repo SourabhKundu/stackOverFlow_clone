@@ -1,0 +1,145 @@
+body {
+    background-image:  url("https://149351115.v2.pressablecdn.com/wp-content/uploads/2018/05/SO_Teams.png");
+    background-position: top left;
+    background-repeat: repeat;
+    background-color: #f7f7f7;
+    background-size: relative;
+}
+.main-header{
+display:flex;
+width:100%;
+flex-direction:column;
+}
+.header2{
+display:flex;
+width:100%;
+justify-content:space-between;
+
+}
+.ask{
+margin-left:300px;}
+.navbar {
+    position: fixed;
+    min-width: auto;
+    box-shadow: var(--bs-sm);
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5050;
+    background-color: var(210, 8%, 97.5%);
+    height: 50px;
+    font-family: var(--ff-sans);
+    box-sizing: border-box;
+    border-top: 3px  solid hsl(27, 90%, 50%);
+}
+
+.col-md-2, .footer-container{
+    background-color: hsl(0, 0%, 95%);
+}
+
+.left-sidebar{
+    top: 10%;
+}
+
+.content{
+     position: absolute;
+     top: 10%;
+}
+
+.form-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-item > a:active {
+    color: #0c0d0e;
+}
+
+.nav-item > a {
+    color: #535a60;
+}
+
+.footer-container a {
+    color: #535a60;
+}
+
+.question-summary > a:hover {
+    text-decoration: none;
+}
+
+.question-summary a:hover {
+    text-decoration: none;
+}
+
+.question-summary .user-info a {
+    color: #5bc0de;
+}
+
+.user-browser a:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+.vote-up {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+
+    border-bottom: 15px solid #bbc0c4;
+}
+
+.vote-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+
+    border-top: 15px solid #bbc0c4;
+}
+
+.user-gravatar.gravatar-50 img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+
+.user-avatar img {
+    width: 164px;
+    height: 164px;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.user-gravatar.gravatar-32 img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.left-sidebar li.nav-item.active {
+    border-width: 3px !important;
+    background: red;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}

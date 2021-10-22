@@ -1,44 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="ISO-8859-1">
     <title>Registration and Login App</title>
-    <style>
-
-    </style>
-    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/custom.css}" rel="stylesheet"/>
 </head>
-<body>
-<a th:href="@{/}">Home</a>
-<div class="h2">
-    <br>
-    <h1> User Login Page </h1>
-    <form th:action="@{/login}"  method="post">
+<body class="d-flex flex-column h-100">
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+<main class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="row">
+            <div class="col-10 col-md-5 col-lg-4 col-xl-3 col-sm-6 mx-auto">
+                <div class="form-wrapper shadow mt-3">
+                    <form th:action="@{/login}" method="post" accept-charset="UTF-8" class="my-3 mx-3">
 
-        <div th:if="${param.error}">
-            Invalid username or password.
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_email">Email</label>
+                            <input autofocus="autofocus" id="user_email" name="email"
+                                   type="email" class="form-control" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="user_password">Password</label>
+                            <input id="user_password" name="password"
+                                   type="password" class="form-control" autocomplete="current-password">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">Remember Me</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login"
+                                   class="btn btn-primary col">
+                        </div>
+                    </form>
+                    <!--                    <form th:action="@{/login}"  method="post">-->
+
+                    <!--                        <div th:if="${param.error}">-->
+                    <!--                            Invalid username or password.-->
+                    <!--                        </div>-->
+                    <!--                        <div th:if="${param.logout}">-->
+                    <!--                            you have been logged out.-->
+                    <!--                        </div>-->
+                    <!--                        <br>-->
+                    <!--                        <label for="Email"> Email </label> <br>-->
+                    <!--                        <input type="email" id="Email" name="email" autofocus="autofocus">-->
+                    <!--                        <br>-->
+                    <!--                        <br>-->
+                    <!--                        <div>-->
+                    <!--                            <label for="password">Password</label><br>-->
+                    <!--                            <input type="password" id="password" name="password"/>-->
+                    <!--                        </div>-->
+                    <!--                        <br>-->
+                    <!--                        <div>-->
+                    <!--                            <input type="submit" name="login-submit" id="login-submit" value="Log In"/>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
+                    <br>
+                    <div>
+                        <span>Don't have an account? <a href="/" th:href="@{/registration}">Sign Up</a></span>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div th:if="${param.logout}">
-            you have been logged out.
-        </div>
-        <br>
-        <label for="Email"> Email </label> <br>
-        <input type="email" id="Email" name="email" autofocus="autofocus">
-        <br>
-        <br>
-        <div>
-            <label for="password">Password</label><br>
-            <input type="password" id="password" name="password"/>
-        </div>
-        <br>
-        <div>
-            <input type="submit" name="login-submit" id="login-submit" value="Log In"/>
-        </div>
-    </form>
-    <br>
-    <div>
-        <span>Don't have an account? <a href="/" th:href="@{/registration}">Sign Up</a></span>
     </div>
-</div>
+</main>
 </body>
 </html>

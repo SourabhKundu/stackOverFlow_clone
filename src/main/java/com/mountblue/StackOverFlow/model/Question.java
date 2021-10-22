@@ -15,7 +15,7 @@ public class Question {
     private Integer questionId;
 
     @Column(name = "title")
-    private String  title;
+    private String title;
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
@@ -24,12 +24,15 @@ public class Question {
     private int viewCount;
 
     @Column(name = "vote_counts")
-    private int voteCount;
+    private int voteCount = 0;
+
+    @Column(name = "reputation")
+    private int reputation = 1;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     @CreationTimestamp
-    private Date  createDate;
+    private Date createDate;
 
     @Column(name = "que_tag")
     private String tag;
@@ -47,14 +50,14 @@ public class Question {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "question_tags",
-            joinColumns = { @JoinColumn(name = "question_id")},
-            inverseJoinColumns = { @JoinColumn (name = "tag_id")})
+            joinColumns = {@JoinColumn(name = "question_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id ")
-    private User  author;
+    private User author;
 
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
@@ -79,13 +82,13 @@ public class Question {
     public Question() {
     }
 
-    public Question(Integer questionId, String title, String description, int viewCount, int voteCount, Date createDate, String tag, Date updateDate, List<QuesComment> comments, List<Answer> answers, Set<Tag> tags,
-                    User author, Set<User> upVotes, Set<User> downVotes) {
+    public Question(Integer questionId, String title, String description, int viewCount, int voteCount, int reputation, Date createDate, String tag, Date updateDate, List<QuesComment> comments, List<Answer> answers, Set<Tag> tags, User author, Set<User> upVotes, Set<User> downVotes) {
         this.questionId = questionId;
         this.title = title;
         this.description = description;
         this.viewCount = viewCount;
         this.voteCount = voteCount;
+        this.reputation = reputation;
         this.createDate = createDate;
         this.tag = tag;
         this.updateDate = updateDate;
@@ -135,6 +138,14 @@ public class Question {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public int getReputation() {
+        return reputation;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
     }
 
     public Date getCreateDate() {
@@ -208,12 +219,4 @@ public class Question {
     public void setDownVotes(Set<User> downVotes) {
         this.downVotes = downVotes;
     }
-
-    public Integer getRating() {
-        if (upVotes != null && downVotes != null) {
-            return upVotes.size() - downVotes.size();
-        }
-        return 0;
-    }
-
 }
