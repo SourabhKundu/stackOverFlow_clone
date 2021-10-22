@@ -16,8 +16,10 @@ public interface UserService  {
 
     void deleteUserById(Integer userId);
 
-    List<User> findUserByName(String keyword);
+
 
     User getUserByEmail(String currentUserEmail);
     public User getUserFromContext();
+
+    List<User> findUserByName(String keyword);
 }

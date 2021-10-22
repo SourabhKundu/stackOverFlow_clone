@@ -97,4 +97,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return user;
     }
+
+    @Override
+    public List<User> findUserByName(String keyword) {
+        return null;
+    }
 }

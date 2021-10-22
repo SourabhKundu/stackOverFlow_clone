@@ -3,6 +3,7 @@ package com.mountblue.StackOverFlow.controller;
 import com.mountblue.StackOverFlow.model.Question;
 import com.mountblue.StackOverFlow.model.User;
 import com.mountblue.StackOverFlow.service.QuestionService;
+import com.mountblue.StackOverFlow.service.UserService;
 import com.mountblue.StackOverFlow.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +22,7 @@ public class HomeControllerForQuestions {
     QuestionService questionService;
 
     @Autowired
-    UserServiceImpl userServiceImpl;
+    UserService userService;
 
     @RequestMapping("/search2")
     public String searchResult(@RequestParam("searchBar") String keyword, Model model) {
@@ -42,7 +43,7 @@ public class HomeControllerForQuestions {
                                           Model model) {
         int pageSize = 2;
         Page<Question> page = questionService.findPaginated(pageNo, pageSize, sortField, sortDir, keyword);
-        User user = userServiceImpl.getCurrentUser();
+        User user = userService.getUserFromContext();
         List<Question> listQuestions = page.getContent();
 
         model.addAttribute("user", user);

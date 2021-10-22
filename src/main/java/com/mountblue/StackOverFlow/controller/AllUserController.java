@@ -18,12 +18,10 @@ import java.util.Set;
 @Controller
 public class AllUserController {
 
+    @Autowired
     private UserService userService;
 
-    public AllUserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-    }
-
+    @Autowired
     private RoleService roleService;
 
     @Autowired
@@ -37,7 +35,6 @@ public class AllUserController {
         this.userService = userService;
     }
 
-    final UserServiceImpl userServiceImpl;
 
     @RequestMapping("/searchUser")
     public String getSearchResult(@RequestParam("search") String keyword, Model model) {
@@ -58,7 +55,7 @@ public class AllUserController {
     public String viewUser(@PathVariable(value = "id")Integer userId, Model model,RedirectAttributes redirectAttributes)  {
 
         try {
-            User currentUser = userServiceImpl.getCurrentUser();
+            User currentUser = userService.getUserFromContext();
             User user = userService.getUserById(userId);
             if(user.getReputation() >= 50){
                 model.addAttribute("goldBadge",1);
