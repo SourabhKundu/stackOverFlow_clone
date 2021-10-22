@@ -35,7 +35,6 @@ public class UserController {
 
     @GetMapping("/")
     public String homepage() {
-        System.out.println("Hi");
         return "index";
     }
 

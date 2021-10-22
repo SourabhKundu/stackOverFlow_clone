@@ -82,7 +82,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(Integer questionId, String title, String description, int viewCount, int voteCount, int reputation, Date createDate, String tag, Date updateDate, List<QuesComment> comments, List<Answer> answers, Set<Tag> tags, User author, Set<User> upVotes, Set<User> downVotes) {
+    public Question(Integer questionId, String title, String description, int viewCount, int voteCount, int reputation, Date createDate, String tag, Date updateDate, List<QuesComment> comments, List<Answer> answers, Set<Tag> tags,
+                    User author, Set<User> upVotes, Set<User> downVotes) {
         this.questionId = questionId;
         this.title = title;
         this.description = description;
@@ -219,4 +220,6 @@ public class Question {
     public void setDownVotes(Set<User> downVotes) {
         this.downVotes = downVotes;
     }
+
+
 }
