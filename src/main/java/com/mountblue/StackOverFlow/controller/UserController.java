@@ -90,7 +90,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/users/deleteUser/{id}")
+    @GetMapping("deleteUser/{id}")
     public String deleteUser(@PathVariable(value = "id")Integer userId)  {
 
         userService.deleteUserById(userId);
