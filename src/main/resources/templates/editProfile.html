@@ -7,7 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title >Edit profile</title>
+    <title>Edit profile</title>
     <link th:href="@{/main.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -15,9 +15,16 @@
 </head>
 <body class="d-flex flex-column h-100">
 
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+
 <main class="d-flex flex-column flex-grow-1">
     <div class="container-fluid d-flex flex-column flex-grow-1">
         <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+            </div>
             <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
                 <div class="content mx-4 mt-4">
                     <div class="h4 font-weight-normal border-bottom pb-3 mt-3">Edit your profile</div>
@@ -31,8 +38,8 @@
                             <input type="hidden" th:field="*{password}">
 
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <div class="avatar-card py-3 px-2 text-center rounded border">
+                                <div class="form-group col-md-4" >
+                                    <div class="avatar-card py-3 px-2 text-center rounded border" style="width: 200px">
                                         <div class="user-avatar mb-1">
                                             <img src="https://www.gravatar.com/avatar/4b152262d9ba55197f609625358ff7e0?s=96&d=identicon&r=PG"
                                                  class="user-avatar-image"
@@ -54,10 +61,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <br>
+                            <div class="form-row" style="margin-left: 338px">
                                 <div class="form-group col-md-3">
                                     <button type="submit" name="submit"
-                                            class="btn btn-primary form-control">Save Profile</button>
+                                            class="btn btn-primary form-control">Save Profile
+                                    </button>
                                 </div>
                                 <div class="form-group col-md-2 align-self-center">
                                     <a th:href="${'/users/viewUser/' + user.userId}">cancel</a>
@@ -70,5 +79,8 @@
         </div>
     </div>
 </main>
+<footer class="footer">
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
 </body>
 </html>
