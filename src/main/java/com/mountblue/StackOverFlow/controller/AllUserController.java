@@ -58,7 +58,7 @@ public class AllUserController {
     public String viewUser(@PathVariable(value = "id")Integer userId, Model model,RedirectAttributes redirectAttributes)  {
 
         try {
-            User currentUser = userServiceImpl.getCurrentUser();
+            User currentUser = userServiceImpl.getUserFromContext();
             User user = userService.getUserById(userId);
             if(user.getReputation() >= 50){
                 model.addAttribute("goldBadge",1);

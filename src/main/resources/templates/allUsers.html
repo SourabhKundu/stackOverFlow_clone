@@ -47,8 +47,8 @@
                             <div class="d-flex flex-wrap">
                                 <div class="d-inline-block w-25 mb-4" th:each="user : ${users}" >
                                     <div class="user-gravatar gravatar-50 float-left">
-                                        <img src="https://www.gravatar.com/avatar/ee6e12042dc31b1ef27471482f9ff91f?s=96&d=identicon&r=PG&f=1"
-                                             height="48" width="48">
+                                        <img src="https://www.gravatar.com/avatar/4b152262d9ba55197f609625358ff7e0?s=96&d=identicon&r=PG"
+                                             height="48" width="48" alt="avatar">
                                     </div>
                                     <div class="user-details float-left ml-2">
                                         <a th:href="${'users/viewUser/' + user.userId}"
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-<!--                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
