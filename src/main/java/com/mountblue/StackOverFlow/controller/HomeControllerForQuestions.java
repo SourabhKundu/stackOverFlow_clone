@@ -1,8 +1,10 @@
 package com.mountblue.StackOverFlow.controller;
 
 import com.mountblue.StackOverFlow.model.Question;
+import com.mountblue.StackOverFlow.model.Tag;
 import com.mountblue.StackOverFlow.model.User;
 import com.mountblue.StackOverFlow.service.QuestionService;
+import com.mountblue.StackOverFlow.service.TagService;
 import com.mountblue.StackOverFlow.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,9 @@ public class HomeControllerForQuestions {
 
     @Autowired
     UserServiceImpl userServiceImpl;
+    @Autowired
+    TagService tagService;
+
 
     @RequestMapping("/search2")
     public String searchResult(@RequestParam("searchBar") String keyword, Model model) {
@@ -44,8 +49,10 @@ public class HomeControllerForQuestions {
         Page<Question> page = questionService.findPaginated(pageNo, pageSize, sortField, sortDir, keyword);
         User user = userServiceImpl.getUserFromContext();
         List<Question> listQuestions = page.getContent();
+        List<Tag> allTags = tagService.getAllTags();
 
         model.addAttribute("user", user);
+        model.addAttribute("tags", allTags);
         model.addAttribute("keyword", keyword);
         model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
@@ -55,7 +62,7 @@ public class HomeControllerForQuestions {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         if (model.getAttribute("listQuestions") == null) {
-            model.addAttribute("listQuestions", listQuestions);
+            model.addAttribute("questions", listQuestions);
         }
 
         return "home";

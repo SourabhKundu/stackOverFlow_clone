@@ -1,89 +1,120 @@
-<!DOCTYPE html>
-
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru" class="h-100">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{/main.css}" rel="stylesheet"/>
+    <!--    <meta name="viewport"-->
+    <!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+    <title>Stack Overflow Clone</title>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/custom.css}">
 </head>
-<body>
 
-<div>
+<body class="d-flex flex-column h-100">
 
-    <a th:href="@{'/page/' + ${currentPage} + '?sortField=createDate&sortDir=' + ${reverseSortDir}}">
-        Sort by published date
-    </a>
-    <br>
-    <a th:href="@{'/page/' + ${currentPage} + '?sortField=title&sortDir=' + ${reverseSortDir}}">
-        Sort by Question
-    </a>
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
 
-</div>
 
-<div>
-    <span>
-        <form th:action="@{/search2}">
-            <input type="text" placeholder="search a keyword" name="searchBar">
-            <input type="submit" value="Search">
-        </form>
-    </span>
-</div>
-
-<!--<th:block th:if="${admin} OR ${user!=null}">-->
-<div class="header">
-    <a th:href="@{/new}"> New Question </a>
-</div>
-<!--</th:block>-->
-<div class="row col-sm-1" sec:authorize="!isAuthenticated()"><a th:href="@{/login}" class="btn btn-primary btn-sm mb-3">
-    Login </a></div>
-
-<div class="row col-sm-1"><span sec:authorize="isAuthenticated()"><a th:href="@{/logout}"
-                                                                     class="btn btn-primary btn-sm mb-3">Logout</a></span>
-</div>
-<div>
-    <a th:href="@{/users}">Users</a>
-</div>
-<div class="row col-sm-1" sec:authorize="!isAuthenticated()"><a th:href="@{/login}" class="btn btn-primary btn-sm mb-3"> Login </a></div>
-
-<div class="row col-sm-1"><span sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3">Logout</a></span></div>
-
-<div class="container">
-    <th:block th:each="question : ${listQuestions}">
-        <div class="ques-item">
-            <div>
-                <a th:href="@{/questions/{id}(id=${question.questionId})}">[[${question.title}]]</a>
+<main class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <span th:each="tag : ${question.tags}">
-                  <span>[[${tag.tagName}]]</span> &nbsp; &nbsp;
-            </span>
-        </div>
-    </th:block>
-</div>
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
+                <div class="content">
+                    <div class="content-header mt-4 mx-4 main-header">
+                        <div class="section-title mb-3 clearfix header2">
+                            <div class="float-left h3 font-weight-normal ">Explore Our Questions</div>
+                            <a class="float-right btn btn-primary ask" th:href="@{/new}">Ask Question</a>
 
-<div th:if="${totalPage} > 1">
-    <div>
-        <div class="div7">
-            <a th:if="${currentPage-1 >= 1}"
-               th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
-            <span th:unless="${currentPage-1 >= 1}" >Previous</span>
-        </div>
+                        </div>
+                        <div class="search-form-wrapper mb-4 d-flex justify-content-between">
+                            <div class="tags float-left w-50">
+                                <div class="d-inline-block" th:each="tag : ${tags}">
+                                    <a class="mr-1 bg-light small rounded p-1 text-info"
+                                       th:href="@{'/search2' + '?searchBar=' + ${tag.tagName}}"
+                                       th:text="${tag.tagName}"></a>
+                                </div>
+                                <a th:href="@{/tags}" class="small text-info">more tags</a>
+                            </div>
+                            <div class="btn-group float-right align-self-end" role="group">
+                                <button type="button"
+                                        class="btn btn-outline-secondary">Active
+                                </button>
+                                <button type="button"
+                                        class="btn btn-outline-secondary">Hot
+                                </button>
+                                <button type="button"
+                                        class="btn btn-outline-secondary">Week
+                                </button>
+                                <button type="button"
+                                        class="btn btn-outline-secondary">Month
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="div7">
-					<span th:each="i: ${#numbers.sequence(1, totalPage)}">
-						<a th:if="${currentPage != i}"
-                           th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
-					</span>
-        </div>
-        <div class="div7">
-            <a th:if="${currentPage < totalPage}"
-               th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-            <input type="hidden" name="start" value="1"/>
+                    <div class="questions-list-container border-top">
 
-            <span th:unless="${currentPage < totalPage}">Next</span>
+                        <div class="d-flex float-none question-info px-3 py-3 border-bottom"
+                             th:each="question : ${questions}">
+                            <div class="question-stats d-flex text-muted text-center mr-4">
+                                <div class="votes d-inline-block py-1 px-2">
+<!--                                                                        <div class="mini-counts h6" th:text="${question.getRating()}"></div>-->
+                                    <div class="small">votes</div>
+                                </div>
+                                <div class="answers d-inline-block py-1 px-1"
+                                     th:classappend="(${question.answers.size() > 0} ? (${question.answers} ?
+                                                                         'rounded border border-success bg-success text-light' :
+                                                                         'rounded border border-success text-success') : '')">
+                                    <div class="mini-counts h6" th:text="${question.answers.size()}"></div>
+                                    <div class="small">answers</div>
+                                </div>
+                                <div class="views d-inline-block py-1 px-2">
+                                    <div class="mini-counts h6">18</div>
+                                    <div class="small">views</div>
+                                </div>
+                            </div>
+                            <div class="summary w-75">
+                                <a class="text-info h6 d-block" th:href="${'/questions/' + question.questionId}"
+                                   th:text="${question.title}"></a>
+                                <div class="tags d-inline-block float-left">
+                                    <div class="d-inline-block" th:each="tag : ${question.tags}">
+                                        <a class="mr-1 bg-light small rounded p-1 text-info"
+                                           th:href="@{'/search2' + '?searchBar=' + ${tag.tagName}}"
+                                           th:text="${tag.tagName}"></a>
+                                    </div>
+                                </div>
+                                <div class="started d-inline-block float-right">
+                                    <div class="text-muted small">
+                                        <div class="d-inline-block"
+                                             th:text="'asked ' + ${question.createDate}">
+                                        </div>
+                                        <a class="text-info"
+                                           th:href="${'/users/viewUser/' + question.author.userId}"
+                                           th:text="${question.author.name}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</main>
+
+<footer class="footer">
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+
 </body>
 </html>
