@@ -221,5 +221,12 @@ public class Question {
         this.downVotes = downVotes;
     }
 
+    public Integer getRating() {
+        if (upVotes != null && downVotes != null) {
+            return upVotes.size() - downVotes.size();
+        }
+        return 0;
+    }
+
 
 }

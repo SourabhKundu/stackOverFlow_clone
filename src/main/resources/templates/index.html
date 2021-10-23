@@ -1,11 +1,8 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.w3.org/1999/xhtml"
       lang="ru" class="h-100">
 <head>
     <meta charset="UTF-8">
-<!--    <meta name="viewport"-->
-<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>Stack Overflow Clone</title>
     <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
@@ -14,17 +11,13 @@
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{/custom.css}">
 </head>
-
 <body class="d-flex flex-column h-100">
-
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
-
-
 <main class="d-flex flex-column flex-grow-1">
     <div class="container-fluid d-flex flex-column flex-grow-1">
-        <div class="row d-flex flex-grow-1">
+        <div class="row d-flex flex-grow-1" style="margin-left: 125px;">
             <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
@@ -32,9 +25,8 @@
                 <div class="content">
                     <div class="content-header mt-4 mx-4 main-header">
                         <div class="section-title mb-3 clearfix header2">
-                            <div class="float-left h3 font-weight-normal ">Explore Our Questions</div>
+                            <div class="float-left h3 font-weight-normal ">Top Questions</div>
                             <a class="float-right btn btn-primary ask" th:href="@{/new}">Ask Question</a>
-
                         </div>
                         <div class="search-form-wrapper mb-4 d-flex justify-content-between">
                             <div class="tags float-left w-50">
@@ -42,7 +34,6 @@
                                     <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
                                        th:text="${tag.name}"></a>
                                 </div>
-                                <a th:href="@{/tags}" class="small text-info">more tags</a>
                             </div>
                             <div class="btn-group float-right align-self-end" role="group">
                                 <button type="button"
@@ -110,10 +101,5 @@
         </div>
     </div>
 </main>
-
-<footer class="footer">
-    <div th:replace="~{fragments/footer :: footer}"></div>
-</footer>
-
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       lang="en">
 <body>
@@ -14,8 +14,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline">
-            <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline" style="margin-left: 60px;width: 100%">
+            <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" style="width: 840px;">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <ul class="navbar-nav mr-auto" sec:authorize="isAuthenticated()">

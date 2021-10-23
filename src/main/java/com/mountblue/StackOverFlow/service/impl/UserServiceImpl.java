@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userRepository = userRepository;
     }
 
+
     @Autowired
     public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;

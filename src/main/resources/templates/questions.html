@@ -16,17 +16,33 @@
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
+
 <main class="d-flex flex-grow-1">
-    <div class="container-fluid d-flex flex-grow-1">
+    <div class="container-fluid d-flex flex-grow-1" style="margin-top: 60px;">
         <div class="row d-flex flex-grow-1">
             <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto" >
                 <div class="content m-3">
-                    <div class="container">
+                    <a class="btn btn-primary" th:href="@{/new}">Ask Question</a>
+                    <div class="container  "  >
                         <th:block th:each="question : ${listQuestions}">
-                            <div class="ques-item">
+                            <div class="col d-flex flex-grow-1">
+                                <div>
+                                    <span>
+                                                <span th:text="${question.getRating()}"></span>
+                                                <span>votes</span>
+                                    </span>
+                                    <span>
+                                            <span th:text="${question.answers.size()}"></span>
+                                            <span>Answers</span>
+                                      </span>
+                                    <span>
+                                            <span>5 </span>
+                                            <span>Views</span>
+                                     </span>
+                                </div>
                                 <div>
                                     <a th:href="@{/questions/{id}(id=${question.questionId})}">[[${question.title}]]</a>
                                 </div>
@@ -41,6 +57,7 @@
         </div>
     </div>
 </main>
+
 <div>
     <a th:href="@{'/sort/' + '?sortField=createDate&sortDir=' + ${reverseSortDir}}">
         Sort by published date
@@ -50,50 +67,5 @@
         Sort by Question
     </a>
 </div>
-
-
-
-
-
-
-
-<!--ADITYA CODE -->
-
-
-
-<!--<div class="container">-->
-<!--    <th:block th:each="question : ${listQuestions}">-->
-<!--        <div class="ques-item">-->
-<!--            <div>-->
-<!--                <span>-->
-<!--                    <span  th:text="${question.getRating()}"></span>-->
-<!--                    <span>votes</span>-->
-<!--                </span>-->
-<!--                <span>-->
-<!--                    <span  th:text="${question.answers.size()}"></span>-->
-<!--                    <span >Answers</span>-->
-<!--                </span>-->
-<!--                <span>-->
-<!--                    <span>5 </span>-->
-<!--                    <span >Views</span>-->
-<!--                </span>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <a th:href="@{/questions/{id}(id=${question.questionId})}">[[${question.title}]]</a>-->
-<!--            </div>-->
-<!--            <span th:each="tag : ${question.tags}">-->
-<!--                  <span>[[${tag.tagName}]]</span> &nbsp; &nbsp;-->
-<!--            </span>-->
-<!--        </div>-->
-<!--    </th:block>-->
-<!--</div>-->
-
-
-
-
-
-<footer class="footer">
-    <div th:replace="~{fragments/footer :: footer}"></div>
-</footer>
 </body>
 </html>

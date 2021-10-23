@@ -16,8 +16,6 @@ public interface UserService  {
 
     void deleteUserById(Integer userId);
 
-
-
     User getUserByEmail(String currentUserEmail);
     public User getUserFromContext();
 

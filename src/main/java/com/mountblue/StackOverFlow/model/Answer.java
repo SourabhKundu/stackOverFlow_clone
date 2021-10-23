@@ -164,4 +164,11 @@ public class Answer {
     public void setDownVotes(Set<User> downVotes) {
         this.downVotes = downVotes;
     }
+
+    public Integer getRating() {
+        if (upVotes != null && downVotes != null) {
+            return upVotes.size() - downVotes.size();
+        }
+        return 0;
+    }
 }
