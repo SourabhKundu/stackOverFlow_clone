@@ -3,9 +3,9 @@ package com.mountblue.StackOverFlow.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-
+@Service
 public class EmailSenderService {
     @Autowired
     private JavaMailSender mailSender;
@@ -15,7 +15,7 @@ public class EmailSenderService {
                          String body){
         SimpleMailMessage message=new SimpleMailMessage();
 
-        message.setFrom("dixitujjwal77200@gmail.com");
+        message.setFrom("dixitujjwal772000@gmail.com");
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);

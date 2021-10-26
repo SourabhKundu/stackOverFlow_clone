@@ -19,5 +19,8 @@ public interface UserService  {
     List<User> findUserByName(String keyword);
 
     User getUserByEmail(String currentUserEmail);
-    public User getUserFromContext();
+
+    User getUserFromContext();
+
+    User findUserByEmail(String email);
 }

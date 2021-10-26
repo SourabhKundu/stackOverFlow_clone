@@ -51,7 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/css/**",
                         "/static/**",
-                        "/forgotPassword").permitAll()
+                        "/forgotPassword",
+                        "/otp",
+                        "/verifyOtp",
+                        "/resetPassword").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

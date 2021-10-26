@@ -18,7 +18,11 @@
         <div class="row">
             <div class="col-10 col-md-5 col-lg-4 col-xl-3 col-sm-6 mx-auto">
                 <div class="form-wrapper shadow mt-3">
-                    <form th:action="@{/resetPassword}" method="post" accept-charset="UTF-8" class="my-3 mx-3">
+                    <form th:action="@{/verifyOtp}" method="post" accept-charset="UTF-8" class="my-3 mx-3">
+
+                        <h3>
+                            <div style="color:red;text-align:center" role="alert" th:text="${error}" th:if="${error}"></div>
+                        </h3>
 
                         <div th:if="${param.error}">
                             <div class="alert alert-danger">
@@ -30,7 +34,7 @@
 
                         <div class="form-group">
                             <label for="otp">OTP</label>
-                            <input autofocus="autofocus" id="otp" name="OTP" type="text" class="form-control">
+                            <input autofocus="autofocus" id="otp" name="otp" type="text" class="form-control">
                         </div>
 
                         <div class="form-group">
