@@ -33,6 +33,11 @@ public class UserController {
         this.roleService = roleService;
     }
 
+    @GetMapping("/forgotPassword")
+    public String forgotPassword(){
+        System.out.println("here");
+        return "forgotPassword";
+    }
 
     @GetMapping("/users")
     public String showAllUsers(Model model){
@@ -91,7 +96,11 @@ public class UserController {
 
         userService.deleteUserById(userId);
         return  "redirect:/users";
-
     }
 
+    @PostMapping("/forgotPassword")
+    public String sendOtpMail(){
+
+        return "";
+    }
 }

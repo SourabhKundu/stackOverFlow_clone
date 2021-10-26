@@ -10,6 +10,7 @@ public class StackOverFlowApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StackOverFlowApplication.class, args);
+		System.out.println("hello world");
 	}
 
 }

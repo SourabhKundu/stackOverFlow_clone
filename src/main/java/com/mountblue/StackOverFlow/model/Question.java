@@ -59,7 +59,6 @@ public class Question {
     @JoinColumn(name = "user_id ")
     private User author;
 
-
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
