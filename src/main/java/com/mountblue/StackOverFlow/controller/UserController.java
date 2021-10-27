@@ -56,7 +56,7 @@ public class UserController {
                                RedirectAttributes redirectAttributes) {
         if(userService.findUserByEmail(user.getEmail())!=null){
             redirectAttributes.addFlashAttribute("error","!!! Already Registered !!!");
-            return "registration";
+            return "redirect:/registration";
         }
         Role role = roleService.getRoleByName("ROLE_USER");
         Set<Role> roles = user.getRoles();

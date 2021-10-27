@@ -22,28 +22,32 @@
                     <form th:action="@{/registration}" method="post" th:object="${user}" accept-charset="UTF-8"
                           class="my-3 mx-3">
 
+                        <h3>
+                            <div style="color:red;text-align:center" role="alert" th:text="${error}" th:if="${error}"></div>
+                        </h3>
+
                         <div th:if="${param.success}">
                             <div class="alert alert-success">
                                 <p>You have registered successfully</p>
                             </div>
                         </div>
 
+
                         <div class="form-group">
                             <label for="user_name">Display name</label>
                             <input autofocus="autofocus" id="user_name" name="username"
-                                   type="text" class="form-control" th:field="*{name}">
+                                   type="text" class="form-control" th:field="*{name}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="user_email">Email</label>
                             <input id="user_email" name="email"
-                                   type="email" class="form-control" th:field="*{email}">
+                                   type="email" class="form-control" th:field="*{email}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="user_password">Password</label>
-                            <input id="user_password" name="password"
-                                   type="password" class="form-control" th:field="*{password}">
+                            <input required id="user_password" name="password" type="password" class="form-control" th:field="*{password}">
                         </div>
 
                         <div class="form-group">

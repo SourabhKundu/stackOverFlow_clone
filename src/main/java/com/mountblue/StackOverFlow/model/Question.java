@@ -225,6 +225,4 @@ public class Question {
         }
         return 0;
     }
-
-
 }
