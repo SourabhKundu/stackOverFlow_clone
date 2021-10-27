@@ -52,7 +52,12 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute("user") User user) {
+    public String registerUser(@ModelAttribute("user") User user,
+                               RedirectAttributes redirectAttributes) {
+        if(userService.findUserByEmail(user.getEmail())!=null){
+            redirectAttributes.addFlashAttribute("error","!!! Already Registered !!!");
+            return "registration";
+        }
         Role role = roleService.getRoleByName("ROLE_USER");
         Set<Role> roles = user.getRoles();
         roles.add(role);
