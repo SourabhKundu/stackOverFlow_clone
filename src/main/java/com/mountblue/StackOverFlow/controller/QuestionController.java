@@ -69,6 +69,7 @@ public class QuestionController {
     public String showQuestions(Model model) {
         User user = userService.getUserFromContext();
         List<Question> listQuestions = questionService.getAllQuestions();
+
         model.addAttribute("listQuestions", listQuestions);
         model.addAttribute("user", user);
         return "questions";
@@ -88,19 +89,25 @@ public class QuestionController {
                                       Model model) {
         User user = userService.getUserFromContext();
         Question question = questionService.getQuestionById(questionId);
+        question.setViewCount(question.getViewCount()+1);
+
+        questionService.save(question);
+
         model.addAttribute("question", question);
         model.addAttribute("user", user);
+
         return "question";
     }
 
     public String showQuestion(Integer questionId, Model model) {
         User user = userService.getUserFromContext();
         Question question = questionService.getQuestionById(questionId);
+
         model.addAttribute("question", question);
         model.addAttribute("user", user);
+
         return "question";
     }
-
 
     @PostMapping("/question/edit/{questionId}")
     public String editQuestion(@PathVariable(value = "questionId") Integer questionId,
@@ -108,6 +115,7 @@ public class QuestionController {
                            @RequestParam("description") String description,
                            @RequestParam("tag") String tag,
                            Model model) {
+
         User user = userService.getUserFromContext();
         Question question = questionService.getQuestionById(questionId);
 
@@ -181,6 +189,4 @@ public class QuestionController {
         model.addAttribute("user", user);
         return "redirect:/questions/{questionId}";
     }
-
 }
-

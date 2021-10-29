@@ -82,7 +82,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/users";
         }
-
     }
 
     @PostMapping("/users/updateUser")
@@ -105,14 +104,12 @@ public class UserController {
 
     @GetMapping("/forgotPassword")
     public String forgotPassword() {
-        System.out.println("here");
         return "forgotPassword";
     }
 
     @PostMapping("/forgotPassword")
     public String sendOtpViaMail(@RequestParam("email") String toEmail, Model model) {
         email=toEmail;
-        System.out.println("to email "+toEmail);
         emailSenderService.sendMail(toEmail, "OTP to change Password", "Your OTP to change password is; -" + otp);
 
         return "otp";
@@ -122,7 +119,6 @@ public class UserController {
     public String verifyOtp(@RequestParam("otp") String usersOtp,
                             RedirectAttributes redirectAttributes){
 
-        System.out.println("verify otp");
         if(Integer.parseInt(usersOtp)==otp){
             System.out.println(" inside if "+otp+" userOtp "+usersOtp);
             return "resetPassword";
@@ -134,11 +130,11 @@ public class UserController {
 
     @PostMapping("/resetPassword")
     public String resetPassword(@RequestParam("password") String password){
-        System.out.println("password "+password);
+
         User user=userService.findUserByEmail(email);
         user.setPassword(password);
         userService.saveUser(user);
-        System.out.println("changed ");
+
         return "login";
     }
 }

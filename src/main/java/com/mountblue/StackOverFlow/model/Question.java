@@ -77,7 +77,6 @@ public class Question {
     )
     private Set<User> downVotes = new HashSet<>();
 
-
     public Question() {
     }
 
