@@ -69,6 +69,7 @@ public class QuestionController {
     public String showQuestions(Model model) {
         User user = userService.getUserFromContext();
         List<Question> listQuestions = questionService.getAllQuestions();
+
         model.addAttribute("listQuestions", listQuestions);
         model.addAttribute("user", user);
         return "questions";
@@ -181,6 +182,4 @@ public class QuestionController {
         model.addAttribute("user", user);
         return "redirect:/questions/{questionId}";
     }
-
 }
-

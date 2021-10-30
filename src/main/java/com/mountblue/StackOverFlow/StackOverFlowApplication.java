@@ -12,5 +12,4 @@ public class StackOverFlowApplication {
 		SpringApplication.run(StackOverFlowApplication.class, args);
 		System.out.println("hello world");
 	}
-
 }

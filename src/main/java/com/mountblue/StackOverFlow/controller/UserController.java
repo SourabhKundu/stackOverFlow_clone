@@ -7,6 +7,9 @@ import com.mountblue.StackOverFlow.service.RoleService;
 import com.mountblue.StackOverFlow.service.UserService;
 import com.mountblue.StackOverFlow.service.impl.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Set;
 
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -26,12 +29,14 @@ public class UserController {
 
     private RoleService roleService;
 
+    private boolean isOtpVerified;
+
     @Autowired
     private EmailSenderService emailSenderService;
 
     private final int otp = (int) (1000 * Math.random());
 
-    private String email= "";
+    private String email = "";
 
     @Autowired
     public void setRoleService(RoleService roleService) {
@@ -45,25 +50,19 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/registration")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute("user") User user,
+    public ResponseEntity<String> registerUser(@ModelAttribute("user") User user,
                                RedirectAttributes redirectAttributes) {
-        if(userService.findUserByEmail(user.getEmail())!=null){
-            redirectAttributes.addFlashAttribute("error","!!! Already Registered !!!");
-            return "redirect:/registration";
+        if (userService.findUserByEmail(user.getEmail()) != null) {
+
+            return new ResponseEntity<>("Already Registered",HttpStatus.OK);
         }
         Role role = roleService.getRoleByName("ROLE_USER");
         Set<Role> roles = user.getRoles();
         roles.add(role);
         user.setRoles(roles);
         userService.saveUser(user);
-        return "redirect:/registration?success";
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/login")
@@ -82,7 +81,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/users";
         }
-
     }
 
     @PostMapping("/users/updateUser")
@@ -103,42 +101,44 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/forgotPassword")
-    public String forgotPassword() {
-        System.out.println("here");
-        return "forgotPassword";
-    }
-
     @PostMapping("/forgotPassword")
-    public String sendOtpViaMail(@RequestParam("email") String toEmail, Model model) {
-        email=toEmail;
-        System.out.println("to email "+toEmail);
-        emailSenderService.sendMail(toEmail, "OTP to change Password", "Your OTP to change password is; -" + otp);
+    public ResponseEntity<?> sendOtpViaMail(@RequestBody String toEmail, Model model) {
+        try {
+            email = toEmail;
 
-        return "otp";
+            emailSenderService.sendMail(toEmail, "OTP to change Password", "Your OTP to change password is; -" + otp);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/verifyOtp")
-    public String verifyOtp(@RequestParam("otp") String usersOtp,
-                            RedirectAttributes redirectAttributes){
+    public ResponseEntity<?> verifyOtp(@RequestParam("otp") String usersOtp,
+                                       RedirectAttributes redirectAttributes) {
 
-        System.out.println("verify otp");
-        if(Integer.parseInt(usersOtp)==otp){
-            System.out.println(" inside if "+otp+" userOtp "+usersOtp);
-            return "resetPassword";
+        if (Integer.parseInt(usersOtp) == otp) {
+            isOtpVerified = true;
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
         redirectAttributes.addFlashAttribute("error", "!!! Incorrect OTP !!!");
 
-        return "otp";
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @PostMapping("/resetPassword")
-    public String resetPassword(@RequestParam("password") String password){
-        System.out.println("password "+password);
-        User user=userService.findUserByEmail(email);
+    public ResponseEntity<?> resetPassword(@RequestBody String password) {
+
+        if (!isOtpVerified)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        User user = userService.findUserByEmail(email);
+
         user.setPassword(password);
         userService.saveUser(user);
-        System.out.println("changed ");
-        return "login";
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
